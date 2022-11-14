@@ -1,0 +1,6 @@
+comment = 'convert: A few helpful conversion functions for spatial and routing: Created with pgx by RustProof Labs'
+default_version = '@CARGO_VERSION@'
+module_pathname = '$libdir/convert'
+relocatable = false
+superuser = false
+schema = convert
