@@ -9,6 +9,11 @@ fn dist_mi_to_ft(miles: f64) -> f64 {
     return miles * 5280.0;
 }
 
+#[pg_extern]
+fn dist_ft_to_mi(feet: f64) -> f64 {
+    return feet / 5280.0;
+}
+
 
 #[pg_extern]
 fn dist_ft_to_m(feet: f64) -> f64 {
@@ -34,14 +39,13 @@ fn dist_mi_to_km(miles: f64) -> f64 {
 
 
 #[pg_extern]
-fn dist_km_to_mi(kilometers: f64) -> f64 {
-    return kilometers * 0.6213712;
-}
-
-
-#[pg_extern]
 fn dist_m_to_ft(meters: f64) -> f64 {
     return meters * 3.28084;
+}
+
+#[pg_extern]
+fn dist_km_to_mi(kilometers: f64) -> f64 {
+    return dist_ft_to_mi(dist_m_to_ft(dist_km_to_m(kilometers)));
 }
 
 
