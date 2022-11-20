@@ -27,8 +27,7 @@ fn dist_m_to_km(meters: f64) -> f64 {
 
 #[pg_extern]
 fn dist_km_to_m(kilometers: f64) -> f64 {
-    // inverse of m_to_km conversion
-    1.0 / dist_m_to_km(kilometers)
+    kilometers * 1000.0
 }
 
 
@@ -89,7 +88,16 @@ mod tests {
     fn test_dist_mi_to_km() {
         let expected = 1.7702784000000003;
         let actual = crate::dist_mi_to_km(1.1);
-        assert_eq!(expected, actual);
+        let absolute_diff = (expected - actual).abs();
+        assert!(absolute_diff <= f64::EPSILON);
+    }
+
+    #[pg_test]
+    fn test_dist_km_to_mi() {
+        let expected = 2.7340333333333335;
+        let actual = crate::dist_km_to_mi(4.4);
+        let absolute_diff = (expected - actual).abs();
+        assert!(absolute_diff <= f64::EPSILON);
     }
 
 }
