@@ -10,13 +10,14 @@ cargo pgx package --pg-config /usr/lib/postgresql/14/bin/pg_config
 cd target/release/convert-pg14/
 
 find ./ -name "*.so" -exec strip {} \;
-OUTNAME=convert
+OUTFILE=convert.deb
+rm ${OUTFILE} || true
 fpm \
   -s dir \
   -t deb -n convert \
   -v 0.0.1 \
   --deb-no-default-config-files \
-  -p ${OUTNAME}.deb \
+  -p ${OUTFILE} \
   -a amd64 \
   .
 

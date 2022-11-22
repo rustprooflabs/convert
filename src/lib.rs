@@ -43,6 +43,11 @@ fn dist_m_to_ft(meters: f64) -> f64 {
 }
 
 #[pg_extern]
+fn dist_m_to_mi(meters: f64) -> f64 {
+    dist_ft_to_mi(dist_m_to_ft(meters))
+}
+
+#[pg_extern]
 fn dist_km_to_mi(kilometers: f64) -> f64 {
     dist_ft_to_mi(dist_m_to_ft(dist_km_to_m(kilometers)))
 }
