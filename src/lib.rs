@@ -77,6 +77,18 @@ fn ttt_meters_m_s(length_meters: f64, meters_per_second: f64) -> f64 {
     length_meters / meters_per_second
 }
 
+// Power conversions
+#[pg_extern]
+fn power_dbm_to_watts(dbm: f64) -> f64 {
+    let base: f64 = 10.0;
+    base.powf(dbm / 10.0) / 1000.0
+}
+
+#[pg_extern]
+fn power_watts_to_dbm(watts: f64) -> f64 {
+    ( 10.0 * watts.log10() ) + 30.0
+}
+
 
 extension_sql_file!("sql/comments.sql",
     finalize
@@ -105,6 +117,21 @@ mod tests {
         assert!(absolute_diff <= f64::EPSILON);
     }
 
+    #[pg_test]
+    fn test_power_dbm_to_watts() {
+        let expected = 1.0;
+        let actual = crate::power_dbm_to_watts(30.0);
+        let absolute_diff = (expected - actual).abs();
+        assert!(absolute_diff <= f64::EPSILON);
+    }
+
+    #[pg_test]
+    fn test_power_watts_to_dbm() {
+        let expected = 30.0;
+        let actual = crate::power_watts_to_dbm(1.0);
+        let absolute_diff = (expected - actual).abs();
+        assert!(absolute_diff <= f64::EPSILON);
+    }
 }
 
 #[cfg(test)]

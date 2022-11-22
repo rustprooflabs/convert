@@ -14,3 +14,7 @@ COMMENT ON FUNCTION convert.speed_kmhr_to_mph IS 'Speed conversion - kilometers 
 COMMENT ON FUNCTION convert.speed_kmhr_to_m_s IS 'Speed conversion - kilometers per hour to meters per second';
 COMMENT ON FUNCTION convert.ttt_meters_m_s IS 'TTT = Time To Travel.  Input: Meters and Meters per Second (m_s). Returns Seconds.';
 
+
+COMMENT ON FUNCTION convert.power_dbm_to_watts IS 'Power conversion: dBm to Watts';
+COMMENT ON FUNCTION convert.power_watts_to_dbm IS 'Power conversion: Watts to dBm';
+
