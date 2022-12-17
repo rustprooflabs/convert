@@ -1,11 +1,20 @@
-# Convert:  Common spatial conversions
+# Convert:  Common conversion functions
 
-Instructions coming soon.
+Convert is a Postgres extension providing common conversion functions, such as meters to feet
+or miles to kilometers.
 
-The extension is built on the Rust [pgx framework](https://github.com/tcdi/pgx).
+The `convert` extension is built using the Rust [pgx framework](https://github.com/tcdi/pgx).
+
+## Creating installer for your system
+
+Currently no pre-packaged installers are available. The following steps walk through
+creating a package on a typical Ubuntu based system with Postgres 14.
+These steps assume cargo pgx is already installed.
+
+> Timing note:  `cargo pgx package` takes ~ 2 minutes on my main dev machine.
 
 
-```
+```bash
 cargo pgx package --pg-config /usr/lib/postgresql/14/bin/pg_config
 cd target/release/convert-pg14/
 
