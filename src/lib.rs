@@ -3,7 +3,6 @@ use pgx::prelude::*;
 pgx::pg_module_magic!();
 
 
-
 #[pg_extern]
 fn dist_mi_to_ft(miles: f64) -> f64 {
     miles * 5280.0
@@ -95,11 +94,18 @@ extension_sql_file!("sql/comments.sql",
 );
 
 
-
 #[cfg(any(test, feature = "pg_test"))]
 #[pg_schema]
 mod tests {
     use pgx::prelude::*;
+
+    #[pg_test]
+    fn test_dist_m_to_ft() {
+        let expected = 3.6089240000000005;
+        let actual = crate::dist_m_to_ft(1.1);
+        let absolute_diff = (expected - actual).abs();
+        assert!(absolute_diff <= f64::EPSILON);
+    }
 
     #[pg_test]
     fn test_dist_mi_to_km() {
