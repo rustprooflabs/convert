@@ -3,87 +3,101 @@ use pgx::prelude::*;
 pgx::pg_module_magic!();
 
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn dist_mi_to_ft(miles: f64) -> f64 {
     miles * 5280.0
 }
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn dist_ft_to_mi(feet: f64) -> f64 {
     feet / 5280.0
 }
 
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn dist_ft_to_m(feet: f64) -> f64 {
     feet * 0.3048
 }
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn dist_m_to_km(meters: f64) -> f64 {
     meters / 1000.0
 }
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn dist_km_to_m(kilometers: f64) -> f64 {
     kilometers * 1000.0
 }
 
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn dist_mi_to_km(miles: f64) -> f64 {
     dist_m_to_km(dist_ft_to_m(dist_mi_to_ft(miles)))
 }
 
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn dist_m_to_ft(meters: f64) -> f64 {
     meters * 3.28084
 }
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn dist_m_to_mi(meters: f64) -> f64 {
     dist_ft_to_mi(dist_m_to_ft(meters))
 }
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn dist_km_to_mi(kilometers: f64) -> f64 {
     dist_ft_to_mi(dist_m_to_ft(dist_km_to_m(kilometers)))
 }
 
 
 // mph and km/hr
-#[pg_extern]
+#[pg_extern(immutable)]
 fn speed_mph_to_kmhr(miles_per_hour: f64) -> f64 {
     miles_per_hour * 1.609344
 }
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn speed_kmhr_to_mph(kilometers_per_hour: f64) -> f64 {
     kilometers_per_hour * 0.621
 }
 
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn speed_kmhr_to_m_s(kmhr: f64) -> f64 {
     kmhr * 0.27777777777778
 }
 
+#[pg_extern(immutable)]
+fn speed_mph_to_m_s(miles_per_hour: f64) -> f64 {
+    speed_kmhr_to_m_s(speed_mph_to_kmhr(miles_per_hour))
+}
+
+#[pg_extern(immutable)]
+fn speed_m_s_to_kmhr(meters_per_second: f64) -> f64 {
+    meters_per_second * 3.6
+}
+
+#[pg_extern(immutable)]
+fn speed_m_s_to_mph(meters_per_second: f64) -> f64 {
+    speed_kmhr_to_mph(speed_m_s_to_kmhr(meters_per_second))
+}
 
 // speed + distance -> time
-#[pg_extern]
+#[pg_extern(immutable)]
 fn ttt_meters_m_s(length_meters: f64, meters_per_second: f64) -> f64 {
     length_meters / meters_per_second
 }
 
 // Power conversions
-#[pg_extern]
+#[pg_extern(immutable)]
 fn power_dbm_to_watts(dbm: f64) -> f64 {
     let base: f64 = 10.0;
     base.powf(dbm / 10.0) / 1000.0
 }
 
-#[pg_extern]
+#[pg_extern(immutable)]
 fn power_watts_to_dbm(watts: f64) -> f64 {
     ( 10.0 * watts.log10() ) + 30.0
 }
@@ -138,6 +152,39 @@ mod tests {
         let absolute_diff = (expected - actual).abs();
         assert!(absolute_diff <= f64::EPSILON);
     }
+
+    #[pg_test]
+    fn test_speed_mph_to_kmhr() {
+        let expected = 1.609344;
+        let actual = crate::speed_mph_to_kmhr(1.0);
+        let absolute_diff = (expected - actual).abs();
+        assert!(absolute_diff <= f64::EPSILON);
+    }
+    
+    #[pg_test]
+    fn test_speed_mph_to_m_s() {
+        let expected = 0.4470400000000036;
+        let actual = crate::speed_mph_to_m_s(1.0);
+        let absolute_diff = (expected - actual).abs();
+        assert!(absolute_diff <= f64::EPSILON, "Actual found: {actual}");
+    }
+    
+    #[pg_test]
+    fn test_speed_m_s_to_kmhr() {
+        let expected = 15.120000000000001;
+        let actual = crate::speed_m_s_to_kmhr(4.2);
+        let absolute_diff = (expected - actual).abs();
+        assert!(absolute_diff <= f64::EPSILON, "Actual found: {actual}");
+    }
+
+    #[pg_test]
+    fn test_speed_m_s_to_mph() {
+        let expected = 9.389520000000001;
+        let actual = crate::speed_m_s_to_mph(4.2);
+        let absolute_diff = (expected - actual).abs();
+        assert!(absolute_diff <= f64::EPSILON, "Actual found: {actual}");
+    }
+
 }
 
 #[cfg(test)]
