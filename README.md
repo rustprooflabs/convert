@@ -11,6 +11,14 @@ Currently no pre-packaged installers are available. The following steps walk thr
 creating a package on a typical Ubuntu based system with Postgres 14.
 These steps assume cargo pgx is already installed.
 
+
+The `fpm` step requires the `fpm` Ruby gem.
+
+```bash
+sudo apt install ruby-rubygems
+sudo gem i fpm
+```
+
 > Timing note:  `cargo pgx package` takes ~ 2 minutes on my main dev machine.
 
 
