@@ -1,4 +1,4 @@
-comment = 'Helpful conversion functions for spatial, routing and other specialized uses: Created with pgx by RustProof Labs'
+comment = 'Helpful conversion functions for spatial, routing and other specialized uses: Created with pgrx by RustProof Labs'
 default_version = '@CARGO_VERSION@'
 module_pathname = '$libdir/convert'
 relocatable = false
