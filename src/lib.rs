@@ -1,6 +1,6 @@
-use pgx::prelude::*;
+use pgrx::prelude::*;
 
-pgx::pg_module_magic!();
+pgrx::pg_module_magic!();
 
 
 #[pg_extern(immutable)]
@@ -111,7 +111,7 @@ extension_sql_file!("sql/comments.sql",
 #[cfg(any(test, feature = "pg_test"))]
 #[pg_schema]
 mod tests {
-    use pgx::prelude::*;
+    use pgrx::prelude::*;
 
     #[pg_test]
     fn test_dist_m_to_ft() {
