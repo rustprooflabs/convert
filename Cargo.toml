@@ -1,6 +1,6 @@
 [package]
 name = "convert"
-version = "0.0.2"
+version = "0.0.3-dev"
 edition = "2021"
 
 [lib]
@@ -16,10 +16,10 @@ pg15 = ["pgrx/pg15", "pgrx-tests/pg15" ]
 pg_test = []
 
 [dependencies]
-pgrx = "=0.7.4"
+pgrx = "=0.9.5"
 
 [dev-dependencies]
-pgrx-tests = "=0.7.4"
+pgrx-tests = "=0.9.5"
 
 [profile.dev]
 panic = "unwind"
