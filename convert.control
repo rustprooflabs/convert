@@ -1,5 +1,5 @@
 comment = 'Helpful conversion functions for spatial, routing and other specialized uses: Created with pgrx by RustProof Labs'
-default_version = '0.0.3'
+default_version = '0.0.4-dev.1'
 module_pathname = '$libdir/convert'
 relocatable = false
 superuser = false
