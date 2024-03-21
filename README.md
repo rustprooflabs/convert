@@ -32,7 +32,7 @@ rm ${OUTFILE} || true
 fpm \
   -s dir \
   -t deb -n convert \
-  -v 0.0.2 \
+  -v 0.0.4-dev.1 \
   --deb-no-default-config-files \
   -p ${OUTFILE} \
   -a amd64 \
