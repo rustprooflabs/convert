@@ -1,7 +1,7 @@
 # Based on PgDD https://github.com/rustprooflabs/pgdd/tree/main/build
 # which was original based on ZomboDB's system.
 #
-# Copyright 2023-2024 RustProof Labs
+# Copyright 2023-2025 RustProof Labs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@ BASE=$(dirname `pwd`)
 VERSION=$(cat $BASE/convert.control | grep default_version | cut -f2 -d\')
 LOGDIR=${BASE}/target/logs
 ARTIFACTDIR=${BASE}/target/artifacts
-PGRXVERSION=0.12.0-alpha.1
+PGRXVERSION=0.14.1
 
-#PG_VERS=("pg12" "pg13" "pg14" "pg15" "pg16")
-PG_VERS=("pg16")
+PG_VERS=("pg13" "pg14" "pg15" "pg16" "pg17")
+#PG_VERS=("pg17")
 
 echo $BASE
 echo $VERSION
