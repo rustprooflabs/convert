@@ -94,6 +94,13 @@ fn ttt_meters_m_s(length_meters: f64, meters_per_second: f64) -> f64 {
     length_meters / meters_per_second
 }
 
+#[pg_extern(immutable)]
+fn ttt_meters_km_hr_to_seconds(
+    length_meters: f64
+    , km_per_hour: f64
+) -> f64 {
+    length_meters / speed_kmhr_to_m_s(km_per_hour)
+}
 
 /////////////////////////////
 // Power conversions
