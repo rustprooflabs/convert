@@ -161,6 +161,19 @@ fn area_acre_to_km2(acres: f64) -> f64 {
 
 
 /////////////////////////////
+// Temperature conversions
+#[pg_extern(immutable)]
+fn temp_c_to_f(celsius: f64) -> f64 {
+    (celsius * 9. / 5.) + 32.
+}
+
+#[pg_extern(immutable)]
+fn temp_f_to_c(fahrenheit: f64) -> f64 {
+    (fahrenheit - 32.) / 1.8
+}
+
+
+/////////////////////////////
 // Add comments to functions
 extension_sql_file!("sql/comments.sql",
     finalize
