@@ -8,8 +8,8 @@ The `convert` extension is built using the Rust [pgrx framework](https://github.
 ## Creating installer for your system
 
 Currently no pre-packaged installers are available. The following steps walk through
-creating a package on a typical Ubuntu based system with Postgres 14.
-These steps assume cargo pgrx is already installed.
+creating a package on Ubuntu with PostgreSQL 15. The extension supports PostgreSQL 15 through 19.
+Install cargo-pgrx 0.20.1 with Rust 1.99.1 or later.
 
 
 The `fpm` step requires the `fpm` Ruby gem.
